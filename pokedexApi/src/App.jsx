@@ -15,9 +15,15 @@ function App() {
           throw new Error('Failed to fetch Pokemon!');
         }
         const pokeData = await response.json();
+        console.log(bannedAttributes);
         const banned = bannedAttributes.some(attr => {
-          return pokeData.types.some(type => type.type.name === attr);
-        });
+          return (
+            pokeData.types.some(type => type.type.name === attr) ||
+            pokeData.abilities.some(ability => ability.ability.name === attr) || 
+            pokeData.heightFeet === attr ||
+            pokeData.weightLbs === attr
+          );
+        });        
         if (!banned) {
           setPokemon({
             ...pokeData,
@@ -31,6 +37,7 @@ function App() {
       console.error('Error fetching random Pokemon:', error);
     }
   };
+  
 
   const handleFetchPokemon = () => {
     fetchRandomPokemon();
