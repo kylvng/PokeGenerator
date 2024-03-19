@@ -1,0 +1,45 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Set the main container to display as a flex container */
+.whole-page {
+  display: flex;
+  align-items: flex-start; /* Align children to the top */
+  color: rgb(60, 60, 60); /* Change to the desired text color */
+
+}
+
+
+.poke-container {
+  width: 48rem; 
+  background-color: rgb(255, 255, 255); 
+  border: 1px solid #ccc; 
+  border-radius: 8px;
+  padding-bottom: 30px;
+  padding-top: 25px;
+}
+
+.fetch-zone {
+  margin-bottom: 20px; /* Add margin between fetch zone and button */
+}
+
+.banList {
+  width: 30rem;
+  background-color: rgb(255, 255, 255); 
+  border: 1px solid #ccc; 
+  border-radius: 8px;
+  margin-left: 20px; /* Add margin for spacing */
+  padding-bottom: 35px;
+  padding-top: 25px;
+}
+
+
+.attribute-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
