@@ -80,7 +80,7 @@ function App() {
       </div>
 
       <div className='banList'>
-        <h1>⛔Banned Attributes🚫:</h1>
+        <h1>⛔Banned Attributes🚫</h1>
         <h3>Select an attribute in your listing to ban it</h3>
         <div>
           {bannedAttributes.map((attr, index) => (
