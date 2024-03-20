@@ -46,7 +46,7 @@ GIF created with Kap!
 
 Describe any challenges encountered while building the app.
 
-The biggest challenge was creating the pokemon history. I had trouble with storage because after a certain amount of api calls, the history state variable would have exceeded quota and the website would crash. To deal with this, instead of storing the poke's entire data, I only stored what was necessary to be display in the gallery, which was the name and image. Now, you can click as much as you want without the website crashing. 
+The biggest challenge was creating the pokemon history. I had trouble with storage because after a certain amount of api calls, the history state variable would have exceeded quota and the website would crash. To deal with this, instead of storing the pokemon's entire data, I only stored what was necessary to be display in the gallery, which was the name and image. Now, you can click as much as you want without the website crashing. 
 
 ## License
 
