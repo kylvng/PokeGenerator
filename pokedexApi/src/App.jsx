@@ -30,7 +30,9 @@ function App() {
             heightFeet: ((pokeData.height / 10) * 3.281).toFixed(1),
             weightLbs: ((pokeData.weight / 10) * 2.205).toFixed(1),
           });
-          setHistory(prevHistory => [...prevHistory, pokeData]);
+          // Extract name and image and store them in history
+          const pokemonInfo = { name: pokeData.name, picture: pokeData.sprites?.front_default || '' };
+          setHistory(prevHistory => [...prevHistory, pokemonInfo]);
           break;
         }
       } while (true);
@@ -38,6 +40,7 @@ function App() {
       console.error('Error fetching random Pokemon:', error);
     }
   };
+  
 
   useEffect(() => {
     const storedHistory = JSON.parse(sessionStorage.getItem('pokemonHistory'));
@@ -84,11 +87,11 @@ function App() {
       <div className='gallery'>
         <h2>Pokémon History📖</h2>
         <div className="pokemon-history">
-          {history.map((pokeData, index) => (
-            <div key={index} className="pokemon-item">
-              <img src={pokeData.sprites.front_default} alt={pokeData.name} />
-              <p style={{ lineHeight: .1 }}>{pokeData.name}</p>
-        </div>
+        {history.map((pokemonInfo, index) => (
+          <div key={index} className="pokemon-item">
+            <img src={pokemonInfo.picture} alt={pokemonInfo.name} />
+            <p style={{ lineHeight: 0.1 }}>{pokemonInfo.name}</p>
+          </div>
       ))}
       </div>
     </div>

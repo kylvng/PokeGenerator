@@ -15,7 +15,7 @@
 
 
 .poke-container {
-  width: 48rem; 
+  width: 54rem; 
   background-color: rgb(255, 255, 255); 
   border: 1px solid #ccc; 
   border-radius: 35px; 
@@ -40,7 +40,7 @@
 }
 
 .gallery{
-  width: 17rem;
+  width: 18rem;
   height: 30rem; /* Set a fixed height for the banlist */
   background-color: rgb(255, 255, 255); 
   border: 1px solid #ccc; 
