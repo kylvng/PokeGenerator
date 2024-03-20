@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
   const [pokemon, setPokemon] = useState(null);
   const [bannedAttributes, setBannedAttributes] = useState([]);
+  const [history, setHistory] = useState([]);
 
   const fetchRandomPokemon = async () => {
     try {
@@ -15,21 +16,21 @@ function App() {
           throw new Error('Failed to fetch Pokemon!');
         }
         const pokeData = await response.json();
-        console.log(bannedAttributes);
-        const banned = bannedAttributes.some(attr => {
+        const bannedFound = bannedAttributes.some(attr => {
           return (
             pokeData.types.some(type => type.type.name === attr) ||
-            pokeData.abilities.some(ability => ability.ability.name === attr) || 
+            pokeData.abilities.map(ability => ability.ability.name).includes(attr) || 
             pokeData.heightFeet === attr ||
             pokeData.weightLbs === attr
           );
-        });        
-        if (!banned) {
+        });
+        if (!bannedFound) {
           setPokemon({
             ...pokeData,
             heightFeet: ((pokeData.height / 10) * 3.281).toFixed(1),
             weightLbs: ((pokeData.weight / 10) * 2.205).toFixed(1),
           });
+          setHistory(prevHistory => [...prevHistory, pokeData]);
           break;
         }
       } while (true);
@@ -37,7 +38,17 @@ function App() {
       console.error('Error fetching random Pokemon:', error);
     }
   };
-  
+
+  useEffect(() => {
+    const storedHistory = JSON.parse(sessionStorage.getItem('pokemonHistory'));
+    if (storedHistory) {
+      setHistory(storedHistory);
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem('pokemonHistory', JSON.stringify(history));
+  }, [history]);
 
   const handleFetchPokemon = () => {
     fetchRandomPokemon();
@@ -70,24 +81,35 @@ function App() {
 
   return (
     <div className='whole-page'>
+      <div className='gallery'>
+        <h2>Pokémon History📖</h2>
+        <div className="pokemon-history">
+          {history.map((pokeData, index) => (
+            <div key={index} className="pokemon-item">
+              <img src={pokeData.sprites.front_default} alt={pokeData.name} />
+              <p style={{ lineHeight: .1 }}>{pokeData.name}</p>
+        </div>
+      ))}
+      </div>
+    </div>
       <div className='poke-container'>
-      <h1>🦄PokéGenerator🎱</h1>
-      <h3 style={{ marginBottom: '-15px' }}>Discover New Pokemon By Pressing the Button Below!</h3>
-      <h4 style={{ fontFamily: 'Verdana, sans-serif', fontStyle: 'italic' }}>It's like a Pokédex, but you have no control over what you'll find... </h4>
-      {pokemon && (
+        <h1>PokéGenerator🎱</h1>
+        <h3 style={{ marginBottom: '-15px' }}>Discover New Pokemon By Pressing the Button Below!</h3>
+        <h4 style={{ fontFamily: 'Verdana, sans-serif', fontStyle: 'italic' }}>It's like a Pokédex, but you have no control over what you'll find... </h4>
+        {pokemon && (
           <div className='fetch-zone'>
-          <div className='attribute-row'>
-            {renderAttributes()}
+            <div className='attribute-row'>
+              {renderAttributes()}
+            </div>
+            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+            <h2>{pokemon.name}</h2>
           </div>
-          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-          <h2>{pokemon.name}</h2>
-          </div>
-      )}
-      <button onClick={handleFetchPokemon}>🔀 Fetch Random Pokemon 👾</button>
+        )}
+        <button onClick={handleFetchPokemon}>🔀 Fetch Random Pokemon 👾</button>
       </div>
 
       <div className='banList'>
-        <h1>⛔Banned Attributes🚫</h1>
+        <h2>Banned Attributes🚫</h2>
         <h3>Select an attribute in your listing to ban it</h3>
         <div>
           {bannedAttributes.map((attr, index) => (

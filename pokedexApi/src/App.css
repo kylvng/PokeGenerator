@@ -28,17 +28,29 @@
 }
 
 .banList {
-  width: 30rem;
+  width: 20rem;
   height: 30rem; /* Set a fixed height for the banlist */
   background-color: rgb(255, 255, 255); 
   border: 1px solid #ccc; 
   border-radius: 35px;
-  margin-left: 50px; /* Add margin for spacing */
+  margin-left: 35px; /* Add margin for spacing */
   padding-bottom: 10px; /* Adjust padding as needed */
   padding-top: 15px; /* Adjust padding as needed */
   overflow-y: auto; /* Enable vertical scrollbar */
 }
 
+.gallery{
+  width: 17rem;
+  height: 30rem; /* Set a fixed height for the banlist */
+  background-color: rgb(255, 255, 255); 
+  border: 1px solid #ccc; 
+  border-radius: 35px;
+  margin-right: 25px;
+  padding: 8px;;
+  padding-bottom: 10px; /* Adjust padding as needed */
+  padding-top: 7px; /* Adjust padding as needed */
+  overflow-y: auto; /* Enable vertical scrollbar */
+}
 
 
 .attribute-row {
@@ -46,3 +58,9 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.attribute-row button:focus {
+  outline: none; /* Remove default focus outline */
+  border: 3px solid red; /* Add red border */
+}
+
